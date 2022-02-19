@@ -48,6 +48,27 @@
 
 <!--end loader -->
 
+<!-- Modal -->
+<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-body text-center p-3">
+      <h5 class="mt-3">Do you want to delete?</h5>
+    <h5 id="delete-id" class="mt-3"></h5>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">NO</button>
+        <button id='yes' type="button" class="btn btn-sm btn-danger">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
+
+
 @endsection
 
 @section('script')
