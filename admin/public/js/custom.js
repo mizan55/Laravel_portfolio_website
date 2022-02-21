@@ -81,22 +81,32 @@ function getServiceData() {
                 }); //end send id to getServiceDelete function para meter
 
 function getServiceDelete(deleteId) {
+      $('#yes').html("<div class='spinner-border spinner-border-sm' role='status'></div>"); //set animation..
     axios.post('/serviceDelete', {
             id: deleteId
         })
         .then(function(response) {
-            if (response.data == 1) {
+              $('#yes').html('Yes'); //set yes after animation
+        if (response.status == 200){
+                  if (response.data == 1) {
                 $('#basicExampleModal').modal('hide');
                 toastr.success('delete success.');
                 getServiceData();
             }else{
                 $('#basicExampleModal').modal('hide');
-                toastr.error('Hi! I am error message.');
+                toastr.error('delete fail.');
 
                 getServiceData();
             } //end if
+        }else{
+                  $('#basicExampleModal').modal('hide');
+                   toastr.error('delete fail');
+        }
+          
         }) //end then
         .catch(function(error) {
+             $('#basicExampleModal').modal('hide');
+                   toastr.error('Somethig went wrong');
 
         }) //end catch
 }
@@ -144,7 +154,7 @@ function getServiceEdit(editId) {
                 });//end send id to editservice function para meter
 
 function getServiceUpdate(sId,sname,desc,simg) {
-
+   $('#Save').html("<div class='spinner-border spinner-border-sm' role='status'></div>");
 
     var isValid=true;
    if(sname.length==0)
@@ -171,6 +181,7 @@ function getServiceUpdate(sId,sname,desc,simg) {
                   img: simg
         })
         .then(function(response) {
+             $('#Save').html("Save");
 
              if (response.status == 200){
                           if (response.data == 1) {
