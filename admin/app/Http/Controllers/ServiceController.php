@@ -12,7 +12,7 @@ class ServiceController extends Controller
     } // end Service Index
 
     function getServiceData(){
-         $ServiceData= json_decode(ServicesModel::all());
+         $ServiceData= json_encode(ServicesModel::all());
           return $ServiceData;
     }// end getServiceData
 
@@ -25,6 +25,33 @@ class ServiceController extends Controller
             }else{
                 return 0;
             }
+    }  //end delet
+
+       function serviceEdit(Request $request){
+             $id=$request->input('id');
+             $result=json_encode(ServicesModel::where('id','=',$id)->get());
+             return  $result;
+    }
+
+
+     function serviceUpdate(Request $request)
+     {
+             $id=$request->input('id');
+               $name=$request->input('name');
+                 $des=$request->input('des');
+                   $img=$request->input('img');
+                     $result= ServicesModel::where('id','=',$id)->update(['service_name'=>$name,'service_des'=>$des,'service_img'=>$img]);
+
+
+                        if($result){return 1;}
+                        else
+                         {
+                         return 0;
+                         }
+            
     }
 
 } //class end
+  
+
+  
