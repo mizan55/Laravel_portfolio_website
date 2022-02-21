@@ -214,3 +214,84 @@ function getServiceUpdate(sId,sname,desc,simg) {
 
  
 }
+
+
+
+//service add new btn click
+$('#addServiceBtn').click(function(){
+    $('#AddModal').modal('show');
+}); 
+
+    //Service catch value
+                $('#addNewButton').click(function() {
+                
+                    var serviceName = $('#serviceNameAdd').val();
+                    var serviceDesc = $('#serviceDescAdd').val();
+                    var serviceImg = $('#serviceImgAdd').val();
+                    getServiceAdd(serviceName,serviceDesc,serviceImg) 
+                   
+
+                });//end Service catch value
+
+
+//Service Add method
+function getServiceAdd(sname,desc,simg) {
+   $('#addNewButton').html("<div class='spinner-border spinner-border-sm' role='status'></div>");
+
+   
+   if(sname.length==0)
+   { 
+      toastr.error('service name is empty');
+   
+   }
+   if(desc.length==0)
+   {
+      toastr.error('service desc is empty');
+    
+   }
+
+   if(simg.length==0)
+   { 
+      toastr.error('service img is empty');
+     
+   }
+
+       axios.post('/serviceAdd', {
+                       name: sname,
+                des: desc,
+                  img: simg
+        })
+        .then(function(response) {
+             $('#addNewButton').html("Save");
+
+             if (response.status == 200){
+                          if (response.data == 1) {
+                        isValid=false;
+                        $('#AddModal').modal('hide');
+                        toastr.success('successfully add.');
+                        getServiceData();
+                        return isValid;
+                    }else{
+                        $('#AddModal').modal('hide');
+                        toastr.error('Hi! I am error message.');
+
+                        getServiceData();
+                    } //end if
+             }else{
+                 $('#AddModal').modal('hide');
+                        toastr.error('something went wrong');
+             }
+
+         
+          
+        }) //end then
+        .catch(function(error) {
+                $('#AddModal').modal('hide');
+                        toastr.error('something went wrong');          
+        }) //end catch
+
+//}  //end else 
+
+
+ 
+}
